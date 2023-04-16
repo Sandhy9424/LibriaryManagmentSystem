@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -31,5 +33,18 @@ public class StudentController {
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.NO_CONTENT);
         }
+    }
+    @DeleteMapping("delete-by-Id")
+    public ResponseEntity deleteStudentById(@RequestParam("Id") int id){
+        try{
+            service.deleteStudentById(id);
+            return new ResponseEntity<>("deleted successfully",HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+    @GetMapping("get-all-students")
+    public List<Student> findAllStudents(){
+        return service.findAll();
     }
 }

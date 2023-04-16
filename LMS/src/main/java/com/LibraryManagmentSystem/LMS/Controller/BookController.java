@@ -1,15 +1,16 @@
 package com.LibraryManagmentSystem.LMS.Controller;
 
+import com.LibraryManagmentSystem.LMS.DTO.RequestAuthorDto;
 import com.LibraryManagmentSystem.LMS.DTO.RequestBookDto;
 import com.LibraryManagmentSystem.LMS.Entity.Book;
+import com.LibraryManagmentSystem.LMS.Enum.Genre;
 import com.LibraryManagmentSystem.LMS.Service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Book")
@@ -24,5 +25,17 @@ public class BookController {
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage()+" "+book.getPrice(),HttpStatus.EXPECTATION_FAILED);
         }
+    }
+    @GetMapping("find-available-books")
+    public List<Book> findAllAvailableBook(){
+        return bookService.findAllAvailableBook();
+    }
+    @GetMapping("find-book-by-author")
+    public List<Book> findByAuthor(@RequestBody RequestAuthorDto authorDto){
+        return bookService.findByAuthor(authorDto);
+    }
+    @GetMapping("find-by-genre")
+    public List<Book> findByGenre(@RequestParam("Genre") Genre genre){
+       return bookService.findByGenre(genre);
     }
 }

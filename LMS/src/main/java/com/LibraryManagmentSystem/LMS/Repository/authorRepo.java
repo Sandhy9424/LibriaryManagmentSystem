@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface authorRepo extends JpaRepository<Author,Integer> {
+    Author findByMobile(String mobile);
 }

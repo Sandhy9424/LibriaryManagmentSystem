@@ -9,6 +9,8 @@ import com.LibraryManagmentSystem.LMS.Repository.studentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class studentService {
     @Autowired
@@ -36,5 +38,11 @@ public class studentService {
        Student student=repo.findById(id).get();
        student.setEmailId(newEmail);
        repo.save(student);
+   }
+   public void deleteStudentById(int id){
+       repo.deleteById(id);
+   }
+   public List<Student> findAll(){
+       return repo.findAll();
    }
 }
